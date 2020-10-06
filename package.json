@@ -21,7 +21,9 @@
     "node": ">=10.0.0"
   },
   "main": "lib/senfi.js",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.20.0"
+  },
   "devDependencies": {},
   "scripts": {},
   "license": "ISC"
