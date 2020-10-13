@@ -12,15 +12,22 @@ See the [`senfi-node` API docs](https://www.senfi.io/docs/api/senfi-node) for No
 
 ## Usage
 
-The package needs to be configured with a Senfi API key and secret, which can be created in the [Senfi CMS][integration-module]. Require it with the key's
-value:
+The package needs to be initialized with a Senfi API key and secret, which can be created in the [Senfi CMS][integration-module]. Initialize using the key values:
 
 <!-- prettier-ignore -->
 ```js
-const senfi = require('senfi')('api-key','api-key-secret');
+const Senfi = require('senfi');
+senfi.initialize('api-key','api-key-secret');
+  .then(()) => console.log('initialized'))
+  .catch(error => console.error(error));
+```
 
-senfi.getSubscriptions()
-  .then(response => console.log(response.subscriptions))
+Example usage:
+
+<!-- prettier-ignore -->
+```js
+senfi.subscription.get()
+  .then(response => console.log(response))
   .catch(error => console.error(error));
 ```
 
