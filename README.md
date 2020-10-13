@@ -16,7 +16,7 @@ The package needs to be initialized with a Senfi API key and secret, which can b
 
 <!-- prettier-ignore -->
 ```js
-const Senfi = require('senfi');
+const senfi = require('senfi');
 senfi.initialize('api-key','api-key-secret');
   .then(()) => console.log('initialized'))
   .catch(error => console.error(error));
