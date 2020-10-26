@@ -4,11 +4,11 @@ The Senfi Node library provides convenient access to the Senfi API from applocat
 
 ## Documentation
 
-See the [`senfi-node` API docs](https://www.senfi.io/docs/api/senfi-node) for Node.js
+See the [Senfi API docs](http://www.dev.senfi.io/docs/api/1/0/)
 
 ## Installation
 
-`npm install senfi-node`
+`npm install senfi`
 
 ## Usage
 
