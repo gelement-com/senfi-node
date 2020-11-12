@@ -4,10 +4,7 @@
   "description": "A node.js wrapper for the Senfi API",
   "author": "Senfi API Team <support@senfi.io> (https://www.senfi.io/)",
   "contributors": [
-    {
-      "name": "senfi-node contributors",
-      "url": "https://github.com/gelement-com/senfi-node/graphs/contributors"
-    }
+    "senfi-node contributors (https://github.com/gelement-com/senfi-node/graphs/contributors)"
   ],
   "keywords": [
     "senfi",
@@ -26,5 +23,12 @@
   },
   "devDependencies": {},
   "scripts": {},
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gelement-com/senfi-node/issues"
+  },
+  "homepage": "https://github.com/gelement-com/senfi-node#readme",
+  "directories": {
+    "lib": "lib"
+  }
 }
