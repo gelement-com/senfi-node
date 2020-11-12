@@ -4,7 +4,7 @@ The Senfi Node library provides convenient access to the Senfi API from applocat
 
 ## Documentation
 
-See the [Senfi API docs](http://www.dev.senfi.io/docs/api/1/0/)
+See the [Senfi API docs](https://www.senfi.io/docs/api/1/0/)
 
 ## Installation
 
