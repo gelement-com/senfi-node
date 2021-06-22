@@ -21,8 +21,14 @@
   "dependencies": {
     "axios": "^0.21.1"
   },
-  "devDependencies": {},
-  "scripts": {},
+  "devDependencies": {
+    "mocha": "^9.0.0",
+    "supertest": "^6.1.3"
+  },
+  "scripts": {
+    "test": "mocha",
+    "supertest": "6.1.3"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gelement-com/senfi-node/issues"
