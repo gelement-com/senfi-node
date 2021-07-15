@@ -1,43 +1,21 @@
 const testData = require("./test-data.json");
 const Senfi = require("../lib/senfi");
 const chai = require("chai");
-const chaiHttp = require("chai-http");
 const expect = chai.expect;
 const config = { host: "api.dev.senfi.io" };
+const sinon = require("sinon");
 
-chai.use(chaiHttp);
+describe.only("Test senfi-node action.js", async function () {
+	describe("Email Test", async function () {
+		it("Should call httpRequest", async function () {
+			let stub = sinon.stub(Senfi.prototype, "httpRequest").yields();
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.action.email([testData.email], "Senfi Title Test", "Senfi Content Test");
 
-describe.only("Testing Senfi action.js", async function () {
-	it("Expects a notification to be sent to test email ", function (done) {
-		let senfi = Senfi();
+			expect(stub.called).equal(true);
 
-		senfi.initialize(testData.key, testData.secret, config);
-
-		senfi.action.email([testData.email], "Senfi Email Subject Test", "Senfi email content test").then(function (res) {
-			expect(res).to.be.an("object");
-			expect(res).to.have.property("success");
-			expect(res.success).equal(true);
-
-			done();
+			Senfi.prototype.httpRequest.restore();
 		});
-
-		// chai
-		//   .request(url)
-		//   .post("/token")
-		//   .set({ "content-type": "application/x-www-form-urlencoded" })
-		//   .send({
-		//     client_id: keys.key,
-		//     client_secret: keys.secret,
-		//     grant_type: "client_credentials"
-		//   })
-		//   .end(function (err, res) {
-		//     expect(res).to.have.status(200);
-		//     expect(res.body).to.have.property("access_token");
-		//     expect(res.body).to.have.property("expires_in");
-		//     expect(res.body).to.have.property(".expire");
-
-		//     token = res.body;
-		//     done();
-		//   });
 	});
 });
