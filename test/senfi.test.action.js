@@ -27,4 +27,15 @@ describe.only("Test senfi-node action.js", async function () {
 
 		Senfi.prototype.httpRequest.restore();
 	});
+
+	it("Telegram - Should call httpRequest", async function () {
+		let stub = sinon.stub(Senfi.prototype, "httpRequest").yields();
+		let senfi = Senfi();
+		await senfi.initialize(testData.key, testData.secret, config);
+		await senfi.action.telegram(null, null);
+
+		expect(stub.called).equal(true);
+
+		Senfi.prototype.httpRequest.restore();
+	});
 });
