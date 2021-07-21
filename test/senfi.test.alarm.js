@@ -33,4 +33,13 @@ describe.only("Test senfi-node alarm.js", async function () {
 			expect(err.success).equal(false);
 		});
 	});
+
+	it("Subscribe - should call httpRequest", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+		await senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null });
+
+		expect(Senfi.prototype.httpRequest.called).equal(true);
+	});
 });
