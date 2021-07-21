@@ -14,24 +14,29 @@ describe.only("Test senfi-node alarm.js", async function () {
 		Senfi.prototype.httpRequest.restore();
 	});
 
-	it("Subscribe - Should receive success false due to invalid arguments on subscribing", async function () {
+	it("Subscribe - Should receive success false due to invalid arguments", async function () {
 		let senfi = Senfi();
 
 		await senfi.initialize(testData.key, testData.secret, config);
-		await senfi.alarm.subscribe().catch(function (err) {
+
+		try {
+			await senfi.alarm.subscribe();
+		} catch (err) {
 			expect(err).to.have.property("success");
 			expect(err.success).equal(false);
-		});
+		}
 	});
 
-	it("Subscribe - should receive success false due to invalid arguments on unexpected values", async function () {
+	it("Subscribe - should receive success false due to unexpected values", async function () {
 		let senfi = Senfi();
 
 		await senfi.initialize(testData.key, testData.secret, config);
-		await senfi.alarm.subscribe({}).catch(function (err) {
+		try {
+			await senfi.alarm.subscribe({});
+		} catch (err) {
 			expect(err).to.have.property("success");
 			expect(err.success).equal(false);
-		});
+		}
 	});
 
 	it("Subscribe - should call httpRequest", async function () {
@@ -39,6 +44,28 @@ describe.only("Test senfi-node alarm.js", async function () {
 
 		await senfi.initialize(testData.key, testData.secret, config);
 		await senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null });
+
+		expect(Senfi.prototype.httpRequest.called).equal(true);
+	});
+
+	it("Unsubscribe - should receive success false due to invalid argument", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+
+		try {
+			await senfi.alarm.unsubscribe();
+		} catch (err) {
+			expect(err).to.have.property("success");
+			expect(err.success).equal(false);
+		}
+	});
+
+	it("Unsubscribe - Should call httpRequest", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+		await senfi.alarm.unsubscribe("");
 
 		expect(Senfi.prototype.httpRequest.called).equal(true);
 	});
