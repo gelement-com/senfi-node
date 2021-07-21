@@ -23,4 +23,14 @@ describe.only("Test senfi-node alarm.js", async function () {
 			expect(err.success).equal(false);
 		});
 	});
+
+	it("Subscribe - should receive success false due to invalid arguments on unexpected values", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+		await senfi.alarm.subscribe({}).catch(function (err) {
+			expect(err).to.have.property("success");
+			expect(err.success).equal(false);
+		});
+	});
 });
