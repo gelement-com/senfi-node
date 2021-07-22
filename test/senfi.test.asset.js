@@ -38,4 +38,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(err.success).equal(false);
 		}
 	});
+
+	it("Get - should call httpRequest", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+		await senfi.asset.get({ site_id: null, asset_id: null, tag: null });
+
+		expect(Senfi.prototype.httpRequest.called).equal(true);
+	});
 });
