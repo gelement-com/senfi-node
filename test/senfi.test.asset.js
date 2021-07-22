@@ -63,5 +63,18 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(Senfi.prototype.httpRequest.called).equal(true);
 			}
 		});
+
+		it("getAssetIdFromTag - should receive error code not_found", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [] });
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			let result = await senfi.asset.getAssetIdFromTag();
+			
+			expect(result).to.have.property("success");
+			expect(result.success).equal(false);
+			expect(result.errcode).equal("not_found");
+		});
 	});
 });
