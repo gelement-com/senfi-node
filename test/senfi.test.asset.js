@@ -51,7 +51,7 @@ describe.only("Test senfi-node asset.js", async function () {
 	});
 
 	describe("getAssetIdFromTag", async function () {
-		it("getAssetIdFromTag - should call httpRequest", async function () {
+		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
@@ -64,14 +64,27 @@ describe.only("Test senfi-node asset.js", async function () {
 			}
 		});
 
-		it("getAssetIdFromTag - should receive error code not_found", async function () {
+		it("Should receive error code not_found when no asset", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [] });
 
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
 			let result = await senfi.asset.getAssetIdFromTag();
-			
+
+			expect(result).to.have.property("success");
+			expect(result.success).equal(false);
+			expect(result.errcode).equal("not_found");
+		});
+
+		it("Should receive error code not_found when success false", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: false, errcode: "not_found" });
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			let result = await senfi.asset.getAssetIdFromTag();
+
 			expect(result).to.have.property("success");
 			expect(result.success).equal(false);
 			expect(result.errcode).equal("not_found");
