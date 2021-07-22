@@ -47,4 +47,16 @@ describe.only("Test senfi-node asset.js", async function () {
 
 		expect(Senfi.prototype.httpRequest.called).equal(true);
 	});
+
+	it("getAssetIdFromTag - should call httpRequest", async function () {
+		Senfi.prototype.httpRequest.restore();
+		sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [1] });
+
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+		await senfi.asset.getAssetIdFromTag(null, {});
+		
+		expect(Senfi.prototype.httpRequest.called).equal(true);
+	});
 });
