@@ -13,4 +13,17 @@ describe.only("Test senfi-node asset.js", async function () {
 	this.afterEach(function () {
 		Senfi.prototype.httpRequest.restore();
 	});
+
+	it("Get - Should receive success false due to invalid arguments", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+
+		try {
+			await senfi.asset.get();
+		} catch (err) {
+			expect(err).to.have.property("success");
+			expect(err.success).equal(false);
+		}
+	});
 });
