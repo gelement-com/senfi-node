@@ -26,4 +26,16 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(err.success).equal(false);
 		}
 	});
+
+	it("Get - should receive success false due to unexpected values", async function () {
+		let senfi = Senfi();
+
+		await senfi.initialize(testData.key, testData.secret, config);
+		try {
+			await senfi.asset.get({});
+		} catch (err) {
+			expect(err).to.have.property("success");
+			expect(err.success).equal(false);
+		}
+	});
 });
