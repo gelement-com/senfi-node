@@ -25,7 +25,6 @@ describe.only("Test senfi-node asset.js", async function () {
 		});
 
 		it("Should throw error", async function () {
-			let error = new Error("Test");
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
 
