@@ -14,59 +14,63 @@ describe.only("Test senfi-node alarm.js", async function () {
 		Senfi.prototype.httpRequest.restore();
 	});
 
-	it("Subscribe - Should receive success false due to invalid arguments", async function () {
-		let senfi = Senfi();
+	describe("Subscribe", async function () {
+		it("Should receive success false due to invalid arguments", async function () {
+			let senfi = Senfi();
 
-		await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret, config);
 
-		try {
-			await senfi.alarm.subscribe();
-		} catch (err) {
-			expect(err).to.have.property("success");
-			expect(err.success).equal(false);
-		}
+			try {
+				await senfi.alarm.subscribe();
+			} catch (err) {
+				expect(err).to.have.property("success");
+				expect(err.success).equal(false);
+			}
+		});
+
+		it("Should receive success false due to unexpected values", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			try {
+				await senfi.alarm.subscribe({});
+			} catch (err) {
+				expect(err).to.have.property("success");
+				expect(err.success).equal(false);
+			}
+		});
+
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null });
+
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
 	});
 
-	it("Subscribe - should receive success false due to unexpected values", async function () {
-		let senfi = Senfi();
+	describe("Unsubscribe", async function () {
+		it("Should receive success false due to invalid argument", async function () {
+			let senfi = Senfi();
 
-		await senfi.initialize(testData.key, testData.secret, config);
-		try {
-			await senfi.alarm.subscribe({});
-		} catch (err) {
-			expect(err).to.have.property("success");
-			expect(err.success).equal(false);
-		}
-	});
+			await senfi.initialize(testData.key, testData.secret, config);
 
-	it("Subscribe - should call httpRequest", async function () {
-		let senfi = Senfi();
+			try {
+				await senfi.alarm.unsubscribe();
+			} catch (err) {
+				expect(err).to.have.property("success");
+				expect(err.success).equal(false);
+			}
+		});
 
-		await senfi.initialize(testData.key, testData.secret, config);
-		await senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null });
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
 
-		expect(Senfi.prototype.httpRequest.called).equal(true);
-	});
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.alarm.unsubscribe("");
 
-	it("Unsubscribe - should receive success false due to invalid argument", async function () {
-		let senfi = Senfi();
-
-		await senfi.initialize(testData.key, testData.secret, config);
-
-		try {
-			await senfi.alarm.unsubscribe();
-		} catch (err) {
-			expect(err).to.have.property("success");
-			expect(err.success).equal(false);
-		}
-	});
-
-	it("Unsubscribe - Should call httpRequest", async function () {
-		let senfi = Senfi();
-
-		await senfi.initialize(testData.key, testData.secret, config);
-		await senfi.alarm.unsubscribe("");
-
-		expect(Senfi.prototype.httpRequest.called).equal(true);
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
 	});
 });
