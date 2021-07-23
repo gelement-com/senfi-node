@@ -169,4 +169,30 @@ describe.only("Test senfi-node asset.js", async function () {
 			}
 		});
 	});
+
+	describe("isPointBelowOrOnLevel", async function () {
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.bbl.isPointBelowOrOnLevel();
+
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
+
+		it("Should throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			try {
+				await senfi.bbl.isPointBelowOrOnLevel();
+			} catch (err) {
+				expect(err).to.have.property("success");
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("sdk_exception");
+			}
+		});
+	});
 });
