@@ -23,5 +23,21 @@ describe.only("Test senfi-node asset.js", async function () {
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
+
+		it("Should throw error", async function () {
+			let error = new Error("Test");
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			try {
+				await senfi.bbl.isPointInBuilding();
+			} catch (err) {
+				expect(err).to.have.property("success");
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("sdk_exception");
+			}
+		});
 	});
 });
