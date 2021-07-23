@@ -37,8 +37,6 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(err).to.have.property("errcode");
 				expect(err.errcode).equal("sdk_exception");
 			}
-
-			Senfi.prototype.httpRequest.restore();
 		});
 	});
 
@@ -65,8 +63,6 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(err).to.have.property("errcode");
 				expect(err.errcode).equal("sdk_exception");
 			}
-
-			Senfi.prototype.httpRequest.restore();
 		});
 	});
 
@@ -93,8 +89,6 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(err).to.have.property("errcode");
 				expect(err.errcode).equal("sdk_exception");
 			}
-
-            Senfi.prototype.httpRequest.restore();
 		});
 	});
 
@@ -121,8 +115,6 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(err).to.have.property("errcode");
 				expect(err.errcode).equal("sdk_exception");
 			}
-
-            Senfi.prototype.httpRequest.restore();
 		});
 	});
 
@@ -149,8 +141,6 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(err).to.have.property("errcode");
 				expect(err.errcode).equal("sdk_exception");
 			}
-
-            Senfi.prototype.httpRequest.restore();
 		});
 	});
 });
