@@ -92,12 +92,12 @@ describe.only("Test senfi-node asset.js", async function () {
 		});
 	});
 
-    describe("isPointOnLevel", async function () {
+	describe("isPointAboveLevel", async function () {
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-			await senfi.bbl.isPointOnLevel();
+			await senfi.bbl.isPointAboveLevel();
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
@@ -109,7 +109,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
 			try {
-				await senfi.bbl.isPointOnLevel();
+				await senfi.bbl.isPointAboveLevel();
 			} catch (err) {
 				expect(err).to.have.property("success");
 				expect(err).to.have.property("errcode");
@@ -118,7 +118,7 @@ describe.only("Test senfi-node asset.js", async function () {
 		});
 	});
 
-    describe("isPointAboveOrOnLevel", async function () {
+	describe("isPointAboveOrOnLevel", async function () {
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
