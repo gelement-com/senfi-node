@@ -48,6 +48,22 @@ describe.only("Test senfi-node alarm.js", async function () {
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
+
+		it("Should receive errcode sdk_exception", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+
+			try {
+				await senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null });
+			} catch (err) {
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("sdk_exception");
+			}
+		});
 	});
 
 	describe("Unsubscribe", async function () {
