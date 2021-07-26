@@ -23,7 +23,7 @@ describe.only("Test senfi-node action.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode exception", async function () {
+		it("Should return errcode exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
@@ -48,7 +48,7 @@ describe.only("Test senfi-node action.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode exception", async function () {
+		it("Should return errcode exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
@@ -73,7 +73,7 @@ describe.only("Test senfi-node action.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode exception", async function () {
+		it("Should return errcode exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
@@ -98,7 +98,7 @@ describe.only("Test senfi-node action.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode exception", async function () {
+		it("Should return errcode exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
