@@ -89,7 +89,7 @@ describe.only("Test senfi-node action.js", async function () {
 		});
 	})
 
-	describe("Telegram", async function(){
+	describe("Webhook", async function(){
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
