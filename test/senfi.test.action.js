@@ -89,13 +89,31 @@ describe.only("Test senfi-node action.js", async function () {
 		});
 	})
 
+	describe("Telegram", async function(){
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.action.webhook();
 	
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
 
-	it("Webhook - Should call httpRequest", async function () {
-		let senfi = Senfi();
-		await senfi.initialize(testData.key, testData.secret, config);
-		await senfi.action.webhook(null, null, null, null);
+		it("Should return errcode exception", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
-		expect(Senfi.prototype.httpRequest.called).equal(true);
-	});
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+
+			try {
+				await senfi.action.webhook();
+			} catch (err) {
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("exception");
+			}
+		});
+	})
+
+
+	
 });
