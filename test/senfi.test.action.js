@@ -64,13 +64,32 @@ describe.only("Test senfi-node action.js", async function () {
 		});
 	});
 
-	it("Telegram - Should call httpRequest", async function () {
-		let senfi = Senfi();
-		await senfi.initialize(testData.key, testData.secret, config);
-		await senfi.action.telegram(null, null);
+	describe("Telegram", async function(){
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.action.telegram();
+	
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
 
-		expect(Senfi.prototype.httpRequest.called).equal(true);
-	});
+		it("Should return errcode exception", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+
+			try {
+				await senfi.action.telegram();
+			} catch (err) {
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("exception");
+			}
+		});
+	})
+
+	
 
 	it("Webhook - Should call httpRequest", async function () {
 		let senfi = Senfi();
