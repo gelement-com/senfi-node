@@ -15,7 +15,7 @@ describe.only("Test senfi-node asset.js", async function () {
 	});
 
 	describe("Get", async function () {
-		it("Should receive success false due to invalid arguments", async function () {
+		it("Should receive errcode invalid_argument due to null argument", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
@@ -23,20 +23,20 @@ describe.only("Test senfi-node asset.js", async function () {
 			try {
 				await senfi.asset.get();
 			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err.success).equal(false);
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("invalid_argument");
 			}
 		});
 
-		it("should receive success false due to unexpected values", async function () {
+		it("should receive errcode invalid_argument due to no values", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
 			try {
 				await senfi.asset.get({});
 			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err.success).equal(false);
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("invalid_argument");
 			}
 		});
 
@@ -51,8 +51,7 @@ describe.only("Test senfi-node asset.js", async function () {
 
 		it("should receive errcode sdk_exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws()
-			;
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
@@ -79,7 +78,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			}
 		});
 
-		it("Should receive error code not_found when no asset", async function () {
+		it("Should receive errcode not_found when no asset", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [] });
 
@@ -87,12 +86,11 @@ describe.only("Test senfi-node asset.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			let result = await senfi.asset.getAssetIdFromTag();
 
-			expect(result).to.have.property("success");
-			expect(result.success).equal(false);
+			expect(result).to.have.property("errcode");
 			expect(result.errcode).equal("not_found");
 		});
 
-		it("Should receive error code not_found when success false", async function () {
+		it("Should receive errcode not_found when success false", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: false, errcode: "not_found" });
 
@@ -100,8 +98,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			let result = await senfi.asset.getAssetIdFromTag();
 
-			expect(result).to.have.property("success");
-			expect(result.success).equal(false);
+			expect(result).to.have.property("errcode");
 			expect(result.errcode).equal("not_found");
 		});
 	});
