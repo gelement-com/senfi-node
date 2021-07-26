@@ -88,5 +88,21 @@ describe.only("Test senfi-node alarm.js", async function () {
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
+
+		it("Should call receive errcode sdk_exception", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+
+			try {
+				await senfi.alarm.unsubscribe("");
+			} catch (err) {
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("sdk_exception");
+			}
+		});
 	});
 });
