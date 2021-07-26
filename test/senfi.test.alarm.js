@@ -49,7 +49,7 @@ describe.only("Test senfi-node alarm.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should receive errcode sdk_exception", async function () {
+		it("Should return errcode sdk_exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
@@ -89,7 +89,7 @@ describe.only("Test senfi-node alarm.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should call receive errcode sdk_exception", async function () {
+		it("Should return errcode sdk_exception at httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
