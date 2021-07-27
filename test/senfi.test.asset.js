@@ -133,5 +133,11 @@ describe.only("Test senfi-node asset.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await expect(senfi.asset.getDetail(null)).to.be.rejected;
 		});
+
+		it("Should be rejected when argument have unexpected values", async function () {
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.asset.getDetail({ asset_id1: 1 })).to.be.rejected;
+		});
 	});
 });
