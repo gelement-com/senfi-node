@@ -122,15 +122,10 @@ describe.only("Test senfi-node asset.js", async function () {
 	});
 
 	describe("getDetail", async function () {
-		it("Should receive errcode invalid_argument when argument is not object", async function () {
+		it("Should be rejected when argument is not object", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.asset.getDetail("");
-			} catch (err) {
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("invalid_argument");
-			}
+			await expect(senfi.asset.getDetail("")).to.be.rejected;
 		});
 
 		it("Should receive errcode invalid_argument when argument is null", async function () {
