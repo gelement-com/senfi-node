@@ -73,15 +73,18 @@ describe.only("Test senfi-node asset.js", async function () {
 			}
 		});
 
-		it("Should be resolved when asset is found", async function () {
+		it.only("Should be resolved with success true when asset is found", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [1] });
 
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
-			await expect(senfi.asset.getAssetIdFromTag()).to.be.fulfilled
-		});
 
+			await expect(senfi.asset.getAssetIdFromTag()).to.be.fulfilled;
+
+			let result = await senfi.asset.getAssetIdFromTag();
+			expect(result.success).equal(false);
+		});
 		it("Should receive errcode not_found when success false", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: false, errcode: "not_found" });
