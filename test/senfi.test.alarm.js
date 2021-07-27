@@ -4,6 +4,9 @@ const chai = require("chai");
 const expect = chai.expect;
 const config = { host: "api.dev.senfi.io" };
 const sinon = require("sinon");
+const chaiAsPromised = require("chai-as-promised");
+
+chai.use(chaiAsPromised);
 
 describe.only("Test senfi-node alarm.js", async function () {
 	this.beforeEach(function () {
@@ -15,29 +18,25 @@ describe.only("Test senfi-node alarm.js", async function () {
 	});
 
 	describe("Subscribe", async function () {
-		it("Should receive success false due to invalid arguments", async function () {
+		it("Should be rejected due to argument is not object", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-
-			try {
-				await senfi.alarm.subscribe();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err.success).equal(false);
-			}
+			await expect(senfi.alarm.subscribe("")).to.be.rejected;
 		});
 
-		it("Should receive success false due to unexpected values", async function () {
+		it("Should be rejected due to argument is null", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.alarm.subscribe({});
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err.success).equal(false);
-			}
+			await expect(senfi.alarm.subscribe(null)).to.be.rejected;
+		});
+
+		it("Should be rejected due to object not having expected values", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.alarm.subscribe({ site_id1: 0 })).to.be.rejected;
 		});
 
 		it("Should call httpRequest", async function () {
@@ -49,35 +48,23 @@ describe.only("Test senfi-node alarm.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode sdk_exception at httpRequest when throw error", async function () {
+		it("Should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-
-			try {
-				await senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null });
-			} catch (err) {
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.alarm.subscribe({ site_id: null, asset_id: null, event_def_id: null })).to.be.rejected;
 		});
 	});
 
 	describe("Unsubscribe", async function () {
-		it("Should receive success false due to invalid argument", async function () {
+		it("Should be rejected due to argument is not string", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-
-			try {
-				await senfi.alarm.unsubscribe();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err.success).equal(false);
-			}
+			await expect(senfi.alarm.unsubscribe({})).to.be.rejected;
 		});
 
 		it("Should call httpRequest", async function () {
@@ -89,20 +76,21 @@ describe.only("Test senfi-node alarm.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode sdk_exception at httpRequest when throw error", async function () {
+		it("Should be resolved by httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.alarm.unsubscribe("")).to.be.fulfilled;
+		});
+
+		it("Should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-
-			try {
-				await senfi.alarm.unsubscribe("");
-			} catch (err) {
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.alarm.unsubscribe("")).to.be.rejected;
 		});
 	});
 });
