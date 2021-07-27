@@ -129,5 +129,16 @@ describe.only("Test senfi-node asset.js", async function () {
 				expect(err.errcode).equal("invalid_argument");
 			}
 		});
+
+		it("Should receive errcode invalid_argument when argument is null", async function () {
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			try {
+				await senfi.asset.getDetail(null);
+			} catch (err) {
+				expect(err).to.have.property("errcode");
+				expect(err.errcode).equal("invalid_argument");
+			}
+		});
 	});
 });
