@@ -83,7 +83,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			await expect(senfi.asset.getAssetIdFromTag()).to.be.fulfilled;
 
 			let result = await senfi.asset.getAssetIdFromTag();
-			expect(result.success).equal(false);
+			expect(result.success).equal(true);
 		});
 
 		it("Should be resolved with success false when result is returned but no asset", async function () {
@@ -146,6 +146,15 @@ describe.only("Test senfi-node asset.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await senfi.asset.getDetail({ asset_id: 1 });
 			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
+
+		it("Should be rejected by httpRequest when throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.asset.getDetail({ asset_id: 1 })).to.be.rejected;
 		});
 	});
 });
