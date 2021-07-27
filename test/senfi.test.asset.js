@@ -25,6 +25,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			await expect(senfi.asset.get("")).to.be.rejected;
 		});
 
+		it("Should be rejected due to argument is null", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.asset.get(null)).to.be.rejected;
+		});
+
 		it("should receive errcode invalid_argument due to no values", async function () {
 			let senfi = Senfi();
 
