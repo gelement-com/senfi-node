@@ -73,7 +73,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			}
 		});
 
-		it("Should be resolved with success true when asset is found", async function () {
+		it("Should be resolved with success true when result is returned and asset is found", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [1] });
 
