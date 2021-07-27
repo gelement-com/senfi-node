@@ -48,18 +48,14 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("should receive errcode sdk_exception at httpRequest when throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.asset.get({});
-			} catch (err) {
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+
+			await expect(senfi.asset.get({ site_id: null, asset_id: null, tag: null })).to.be.rejected;
 		});
 	});
 
