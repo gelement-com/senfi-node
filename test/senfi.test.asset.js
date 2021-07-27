@@ -32,16 +32,11 @@ describe.only("Test senfi-node asset.js", async function () {
 			await expect(senfi.asset.get(null)).to.be.rejected;
 		});
 
-		it("should receive errcode invalid_argument due to no values", async function () {
+		it("should be rejected due to unexpected values", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.asset.get({});
-			} catch (err) {
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("invalid_argument");
-			}
+			await expect(senfi.asset.get({ site_id1: 1 })).to.be.rejected;
 		});
 
 		it("should call httpRequest", async function () {
