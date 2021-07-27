@@ -73,7 +73,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			}
 		});
 
-		it.only("Should be resolved with success true when asset is found", async function () {
+		it("Should be resolved with success true when asset is found", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [1] });
 
@@ -85,6 +85,7 @@ describe.only("Test senfi-node asset.js", async function () {
 			let result = await senfi.asset.getAssetIdFromTag();
 			expect(result.success).equal(false);
 		});
+
 		it("Should receive errcode not_found when success false", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: false, errcode: "not_found" });
