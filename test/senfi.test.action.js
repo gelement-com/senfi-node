@@ -26,19 +26,13 @@ describe.only("Test senfi-node action.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should return errcode exception at httpRequest when throw error", async function () {
+		it("Should be rejected by httpRequest", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
-
-			try {
-				await senfi.action.email(null, null, null);
-			} catch (err) {
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("exception");
-			}
+			await expect(senfi.action.email(null, null, null)).to.be.rejected;
 		});
 	});
 
@@ -72,7 +66,7 @@ describe.only("Test senfi-node action.js", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
 			await senfi.action.telegram();
-	
+
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
@@ -97,7 +91,7 @@ describe.only("Test senfi-node action.js", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
 			await senfi.action.webhook();
-	
+
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
