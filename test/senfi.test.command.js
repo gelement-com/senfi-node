@@ -40,5 +40,14 @@ describe.only("Test senfi-node command.js", async function () {
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
+
+		it("should be rejected by httpRequest when throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.command.subscribe({ measurement_code: 1 })).to.be.rejected;
+		});
 	});
 });
