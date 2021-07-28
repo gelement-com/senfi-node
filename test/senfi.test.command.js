@@ -31,5 +31,14 @@ describe.only("Test senfi-node command.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await expect(senfi.command.subscribe({ testProperty: "Test" })).to.be.rejected;
 		});
+
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.command.subscribe({ measurement_code: 1 });
+
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
 	});
 });
