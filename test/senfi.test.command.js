@@ -16,4 +16,13 @@ describe.only("Test senfi-node command.js", async function () {
 	this.afterEach(function () {
 		Senfi.prototype.httpRequest.restore();
 	});
+
+	describe("subscribe", async function () {
+		it("Should reject if arguement is not object", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.command.subscribe("")).to.be.rejected;
+		});
+	});
 });
