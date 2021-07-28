@@ -158,17 +158,17 @@ describe.only("Test senfi-node asset.js", async function () {
 		});
 	});
 
-	describe.only("getAttributeValue", async function () {
-		it("Should be rejected if argument is not object", async function () {
+	describe("getAttributeValue", async function () {
+		it("Should be rejected if argument assetParam is not object", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
-			await expect(senfi.asset.getAttributeValue("")).to.be.rejected;
+			await expect(senfi.asset.getAttributeValue("", null, null)).to.be.rejected;
 		});
 
-		it("Should be rejected if argument is null", async function () {
+		it("Should be rejected if argument assetParam is null", async function () {
 			let senfi = Senfi();
 			await senfi.initialize(testData.key, testData.secret, config);
-			await expect(senfi.asset.getAttributeValue(null)).to.be.rejected;
+			await expect(senfi.asset.getAttributeValue(null, null, null)).to.be.rejected;
 		});
 
 		it("Should be rejected if argument is contain unexpected values", async function () {
