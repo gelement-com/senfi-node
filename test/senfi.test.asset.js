@@ -182,5 +182,22 @@ describe.only("Test senfi-node asset.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await expect(senfi.asset.getAttributeValue({ asset_id: "tempValue" }, 1, null)).to.be.rejected;
 		});
+
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.asset.getAttributeValue({ asset_id: "tempValue" }, "", null);
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
+
+		it("Should be rejected by httpRequest when throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.asset.getAttributeValue({ asset_id: "tempValue" }, "", null)).to.be.rejected;
+		});
 	});
 });
