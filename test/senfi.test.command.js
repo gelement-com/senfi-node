@@ -24,5 +24,12 @@ describe.only("Test senfi-node command.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await expect(senfi.command.subscribe("")).to.be.rejected;
 		});
+
+		it("should reject if argument contain unexpected property", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.command.subscribe({ testProperty: "Test" })).to.be.rejected;
+		});
 	});
 });
