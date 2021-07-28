@@ -33,7 +33,6 @@ describe.only("Test senfi-node asset.js", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-
 			await expect(senfi.bbl.isPointInBuilding()).to.be.rejected;
 		});
 	});
@@ -48,19 +47,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
-
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
+
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.bbl.isPointInBlock();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.bbl.isPointInBlock()).to.be.rejected;
 		});
 	});
 
@@ -74,19 +67,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
-
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
+
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.bbl.isPointOnLevel();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.bbl.isPointOnLevel()).to.be.rejected;
 		});
 	});
 
@@ -100,19 +87,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
-
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
+
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.bbl.isPointAboveLevel();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.bbl.isPointAboveLevel()).to.be.rejected;
 		});
 	});
 
@@ -126,19 +107,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
-
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
+
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.bbl.isPointAboveOrOnLevel();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.bbl.isPointAboveOrOnLevel()).to.be.rejected;
 		});
 	});
 
@@ -152,19 +127,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
-
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
+
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.bbl.isPointBelowLevel();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.bbl.isPointBelowLevel()).to.be.rejected;
 		});
 	});
 
@@ -178,19 +147,13 @@ describe.only("Test senfi-node asset.js", async function () {
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
 
-		it("Should throw error", async function () {
+		it("should be rejected by httpRequest when throw error", async function () {
 			Senfi.prototype.httpRequest.restore();
-			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error());
-
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
+
 			await senfi.initialize(testData.key, testData.secret, config);
-			try {
-				await senfi.bbl.isPointBelowOrOnLevel();
-			} catch (err) {
-				expect(err).to.have.property("success");
-				expect(err).to.have.property("errcode");
-				expect(err.errcode).equal("sdk_exception");
-			}
+			await expect(senfi.bbl.isPointBelowOrOnLevel()).to.be.rejected;
 		});
 	});
 });
