@@ -176,5 +176,11 @@ describe.only("Test senfi-node asset.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await expect(senfi.asset.getAttributeValue({ test: 1 }, null, null)).to.be.rejected;
 		});
+
+		it("Should be rejected if argument attributeName is not string", async function () {
+			let senfi = Senfi();
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.asset.getAttributeValue({ asset_id: "tempValue" }, 1, null)).to.be.rejected;
+		});
 	});
 });
