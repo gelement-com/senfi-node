@@ -59,7 +59,7 @@ describe.only("Test senfi-node command.js", async function () {
 			await expect(senfi.command.unsubscribe(1)).to.be.rejected;
 		});
 
-        it("Should call httpRequest", async function () {
+		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
@@ -78,8 +78,8 @@ describe.only("Test senfi-node command.js", async function () {
 		});
 	});
 
-    describe("Request", async function(){
-        it("Should call httpRequest", async function () {
+	describe("Request", async function () {
+		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
@@ -96,5 +96,25 @@ describe.only("Test senfi-node command.js", async function () {
 			await senfi.initialize(testData.key, testData.secret, config);
 			await expect(senfi.command.request()).to.be.rejected;
 		});
-    })
+	});
+
+	describe("Acknowledge", async function () {
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.command.acknowledge();
+
+			expect(Senfi.prototype.httpRequest.called).equal(true);
+		});
+
+		it("should be rejected by httpRequest when throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.command.acknowledge()).to.be.rejected;
+		});
+	});
 });
