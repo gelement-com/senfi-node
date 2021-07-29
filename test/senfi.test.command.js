@@ -50,4 +50,13 @@ describe.only("Test senfi-node command.js", async function () {
 			await expect(senfi.command.subscribe({ measurement_code: 1 })).to.be.rejected;
 		});
 	});
+
+	describe.only("Unsubscribe", async function () {
+		it("Should be rejected if argument is not a string", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.command.unsubscribe(1)).to.be.rejected;
+		});
+	});
 });
