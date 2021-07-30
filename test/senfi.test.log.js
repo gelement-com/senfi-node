@@ -17,7 +17,7 @@ describe.only("Test senfi-node log.js", async function () {
 		Senfi.prototype.httpRequest.restore();
 	});
 
-	describe.only("Subscribe", async function () {
+	describe("Subscribe", async function () {
 		it("Should be rejected when argument is not object", async function () {
 			let senfi = Senfi();
 
@@ -50,4 +50,13 @@ describe.only("Test senfi-node log.js", async function () {
 			await expect(senfi.log.subscribe({ component: [] })).to.be.rejected;
 		});
 	});
+
+	describe.only("Unsubscribe", async function () {
+        it("Should be rejected if argument is not a string", async function(){
+            let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.log.unsubscribe({})).to.be.rejected;
+        })
+    });
 });
