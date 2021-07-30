@@ -51,7 +51,7 @@ describe.only("Test senfi-node log.js", async function () {
 		});
 	});
 
-	describe.only("Unsubscribe", async function () {
+	describe("Unsubscribe", async function () {
 		it("Should be rejected if argument is not a string", async function () {
 			let senfi = Senfi();
 
