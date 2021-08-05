@@ -63,4 +63,37 @@ describe.only("Test senfi-node event.js", async function () {
 			await expect(senfi.measurement.subscribe({ measurement_code: 0 })).to.be.rejected;
 		});
 	});
+
+	describe("Unsubscribe", async function () {
+		it("Should be rejected if argument is not a string", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.measurement.unsubscribe(0)).to.be.rejected;
+		});
+
+		it("Should be rejected if argument is null", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.measurement.unsubscribe(null)).to.be.rejected;
+		});
+
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.measurement.subscribe({ measurement_code: 0 });
+			await expect(Senfi.prototype.httpRequest.called);
+		});
+
+		it("should be rejected by httpRequest when throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.measurement.unsubscribe("")).to.be.rejected;
+		});
+	});
 });
