@@ -65,7 +65,7 @@ describe.only("Test senfi-node webhook.js", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret, config);
-			await expect(senfi.webhook.get("")).to.be.rejected;
+			await expect(senfi.webhook.get()).to.be.rejected;
 		});
 	});
 });
