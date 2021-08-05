@@ -2,7 +2,6 @@ const testData = require("./test-data.json");
 const Senfi = require("../lib/senfi");
 const chai = require("chai");
 const expect = chai.expect;
-const config = { host: "api.dev.senfi.io" };
 const sinon = require("sinon");
 const chaiAsPromised = require("chai-as-promised");
 
@@ -21,21 +20,21 @@ describe("Test senfi-node webhook.js", async function () {
 		it("Should be rejected if argument is not a string", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.webhook.set({})).to.be.rejected;
 		});
 
 		it("Should be rejected if argument is null", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.webhook.set(null)).to.be.rejected;
 		});
 
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await senfi.webhook.set("");
 			await expect(Senfi.prototype.httpRequest.called);
 		});
@@ -45,7 +44,7 @@ describe("Test senfi-node webhook.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.webhook.set("")).to.be.rejected;
 		});
 	});
@@ -54,7 +53,7 @@ describe("Test senfi-node webhook.js", async function () {
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await senfi.webhook.get();
 			await expect(Senfi.prototype.httpRequest.called);
 		});
@@ -64,7 +63,7 @@ describe("Test senfi-node webhook.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.webhook.get()).to.be.rejected;
 		});
 	});

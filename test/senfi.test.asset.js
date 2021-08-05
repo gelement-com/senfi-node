@@ -2,7 +2,6 @@ const testData = require("./test-data.json");
 const Senfi = require("../lib/senfi");
 const chai = require("chai");
 const expect = chai.expect;
-const config = { host: "api.dev.senfi.io" };
 const sinon = require("sinon");
 const chaiAsPromised = require("chai-as-promised");
 
@@ -21,28 +20,28 @@ describe("Test senfi-node asset.js", async function () {
 		it("Should be rejected due to argument is not object", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.get("")).to.be.rejected;
 		});
 
 		it("Should be rejected due to argument is null", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.get(null)).to.be.rejected;
 		});
 
 		it("should be rejected due to unexpected values", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.get({ site_id1: 1 })).to.be.rejected;
 		});
 
 		it("should call httpRequest", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await senfi.asset.get({ site_id: null, asset_id: null, tag: null });
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
@@ -53,7 +52,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 
 			await expect(senfi.asset.get({ site_id: null, asset_id: null, tag: null })).to.be.rejected;
 		});
@@ -63,7 +62,7 @@ describe("Test senfi-node asset.js", async function () {
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 
 			try {
 				await senfi.asset.getAssetIdFromTag();
@@ -78,7 +77,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [1] });
 
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 
 			await expect(senfi.asset.getAssetIdFromTag()).to.be.fulfilled;
 
@@ -91,7 +90,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: true, assets: [] });
 
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 
 			await expect(senfi.asset.getAssetIdFromTag()).to.be.fulfilled;
 
@@ -104,7 +103,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").yields({ success: false, errcode: "not_found" });
 
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAssetIdFromTag()).to.be.fulfilled;
 
 			let result = await senfi.asset.getAssetIdFromTag();
@@ -116,7 +115,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAssetIdFromTag()).to.be.rejected;
 		});
 	});
@@ -124,26 +123,26 @@ describe("Test senfi-node asset.js", async function () {
 	describe("getDetail", async function () {
 		it("Should be rejected when argument is not object", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getDetail("")).to.be.rejected;
 		});
 
 		it("Should be rejected when argument is null", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getDetail(null)).to.be.rejected;
 		});
 
 		it("Should be rejected when argument have unexpected values", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getDetail({ asset_id1: 1 })).to.be.rejected;
 		});
 
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await senfi.asset.getDetail({ asset_id: 1 });
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
@@ -153,7 +152,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getDetail({ asset_id: 1 })).to.be.rejected;
 		});
 	});
@@ -161,32 +160,32 @@ describe("Test senfi-node asset.js", async function () {
 	describe("getAttributeValue", async function () {
 		it("Should be rejected if argument assetParam is not object", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAttributeValue("", null, null)).to.be.rejected;
 		});
 
 		it("Should be rejected if argument assetParam is null", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAttributeValue(null, null, null)).to.be.rejected;
 		});
 
 		it("Should be rejected if argument assetParam contain unexpected properties", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAttributeValue({ test: 1 }, null, null)).to.be.rejected;
 		});
 
 		it("Should be rejected if argument attributeName is not string", async function () {
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAttributeValue({ asset_id: "tempValue" }, 1, null)).to.be.rejected;
 		});
 
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await senfi.asset.getAttributeValue({ asset_id: "tempValue" }, "", null);
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
@@ -196,7 +195,7 @@ describe("Test senfi-node asset.js", async function () {
 			sinon.stub(Senfi.prototype, "httpRequest").throws();
 
 			let senfi = Senfi();
-			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.asset.getAttributeValue({ asset_id: "tempValue" }, "", null)).to.be.rejected;
 		});
 	});
