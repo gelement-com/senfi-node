@@ -96,4 +96,23 @@ describe.only("Test senfi-node event.js", async function () {
 			await expect(senfi.measurement.unsubscribe("")).to.be.rejected;
 		});
 	});
+
+	describe("Publish", async function () {
+		it("Should call httpRequest", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await senfi.measurement.publish(0, [{ testproperty: 0 }], "live");
+			await expect(Senfi.prototype.httpRequest.called);
+		});
+
+		it("should be rejected by httpRequest when throw error", async function () {
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws();
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret, config);
+			await expect(senfi.measurement.publish(0, [{ testproperty: 0 }], "live")).to.be.rejected;
+		});
+	});
 });
