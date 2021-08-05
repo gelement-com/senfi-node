@@ -8,7 +8,7 @@ const chaiAsPromised = require("chai-as-promised");
 
 chai.use(chaiAsPromised);
 
-describe.only("Test senfi-node webhook.js", async function () {
+describe("Test senfi-node webhook.js", async function () {
 	this.beforeEach(function () {
 		sinon.stub(Senfi.prototype, "httpRequest").yields();
 	});
