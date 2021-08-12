@@ -85,21 +85,21 @@ describe("Test senfi-node event.js", async function () {
 	});
 
 	describe("Generate", async function () {
-		it("Should be rejected if argument eventDefId is not number and embeddedInputs is not object and is not null", async function () {
+		it("Should be rejected if argument eventDefId is not number and inputs is not object and is not null", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret);
 
-			// eventDefId, type, embeddedInputs, eventParams
+			// eventDefId, type, inputs, eventParams
 			await expect(senfi.event.generate("", "", "", {})).to.be.rejected;
 		});
 
-		it("Should be rejected if argument embeddedInputs is not object", async function () {
+		it("Should be rejected if argument inputs is not object", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret);
 
-			// eventDefId, type, embeddedInputs, eventParams
+			// eventDefId, type, inputs, eventParams
 			await expect(senfi.event.generate(0, "measurement", "", {})).to.be.rejected;
 		});
 
@@ -108,7 +108,7 @@ describe("Test senfi-node event.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 
-			// eventDefId, type, embeddedInputs, eventParams
+			// eventDefId, type, inputs, eventParams
 			await expect(senfi.event.generate(0, "measurement", {}, "")).to.be.rejected;
 		});
 
@@ -117,7 +117,7 @@ describe("Test senfi-node event.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 
-			// eventDefId, type, embeddedInputs, eventParams
+			// eventDefId, type, inputs, eventParams
 			await expect(senfi.event.generate("", "measurement", {}, { metric_caused: [], measurement_snapshot: [] })).to.be.rejected;
 		});
 
@@ -126,7 +126,7 @@ describe("Test senfi-node event.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 
-			// eventDefId, type, embeddedInputs, eventParams
+			// eventDefId, type, inputs, eventParams
 			await expect(senfi.event.generate(0, "", {}, {})).to.be.rejected;
 		});
 
@@ -136,7 +136,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "measurement", {}, 0)).to.be.rejected;
 			});
 
@@ -145,7 +145,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "measurement", {}, null)).to.be.rejected;
 			});
 
@@ -154,7 +154,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "measurement", {}, { testproperty: 1 })).to.be.rejected;
 			});
 
@@ -163,7 +163,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "measurement", {}, { metric_caused: 1 })).to.be.rejected;
 			});
 
@@ -172,7 +172,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "measurement", {}, { measurement_snapshot: 1 })).to.be.rejected;
 			});
 		});
@@ -183,7 +183,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "event", {}, 0)).to.be.rejected;
 			});
 
@@ -192,7 +192,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "event", {}, null)).to.be.rejected;
 			});
 
@@ -201,7 +201,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "event", {}, { testproperty: 1 })).to.be.rejected;
 			});
 
@@ -210,7 +210,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "event", {}, { event_data: 1 })).to.be.rejected;
 			});
 		});
@@ -221,7 +221,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "alarm", {}, 0)).to.be.rejected;
 			});
 
@@ -230,7 +230,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "alarm", {}, null)).to.be.rejected;
 			});
 
@@ -239,7 +239,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "alarm", {}, { testproperty: 1 })).to.be.rejected;
 			});
 
@@ -248,7 +248,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "alarm", {}, { alarm_data: 1 })).to.be.rejected;
 			});
 		});
@@ -259,7 +259,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "command", {}, 0)).to.be.rejected;
 			});
 
@@ -268,7 +268,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "command", {}, null)).to.be.rejected;
 			});
 
@@ -277,7 +277,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "command", {}, { testproperty: 1 })).to.be.rejected;
 			});
 
@@ -286,7 +286,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "command", {}, { command_data: 1 })).to.be.rejected;
 			});
 		});
@@ -297,7 +297,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "log", {}, 0)).to.be.rejected;
 			});
 
@@ -306,7 +306,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "log", {}, null)).to.be.rejected;
 			});
 
@@ -315,7 +315,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "log", {}, { testproperty: 1 })).to.be.rejected;
 			});
 
@@ -324,7 +324,7 @@ describe("Test senfi-node event.js", async function () {
 
 				await senfi.initialize(testData.key, testData.secret);
 
-				// eventDefId, type, embeddedInputs, eventParams
+				// eventDefId, type, inputs, eventParams
 				await expect(senfi.event.generate(0, "log", {}, { log_data: 1 })).to.be.rejected;
 			});
 		});
