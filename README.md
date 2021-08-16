@@ -1,6 +1,6 @@
 # Senfi Node.js Library
 
-The Senfi Node library provides convenient access to the Senfi API from applocations in server-side Javascript
+The Senfi Node library provides convenient access to the Senfi API from applications in server-side Javascript
 
 ## Documentation
 
@@ -18,7 +18,7 @@ The package needs to be initialized with a Senfi API key and secret, which can b
 ```js
 const Senfi = require('senfi');
 let senfi = new Senfi();
-senfi.initialize('api-key','api-key-secret');
+senfi.initialize('api-key','api-key-secret')
   .then(()) => console.log('initialized'))
   .catch(error => console.error(error));
 ```
