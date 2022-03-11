@@ -112,4 +112,36 @@ describe("Test senfi-node zone.js", async function () {
 			});
 		});
 	});
+
+	describe("isPointInZone", async function () {
+		it("Should be rejected if thrown an error", async function () {
+			let senfi = Senfi();
+
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
+
+			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await expect(senfi.zone.isPointInZone(0, 0, 0, 0)).eventually.be.rejected.and.include({
+				success: false,
+				errmsg: "This is a test",
+				errcode: "sdk_exception"
+			});
+		});
+
+		it("Should be resolved", async function () {
+			let senfi = Senfi();
+
+			Senfi.prototype.httpRequest.restore();
+			sinon.stub(Senfi.prototype, "httpRequest").yields({
+				success: true,
+				zone_result: true
+			});
+
+			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await expect(senfi.zone.isPointInZone(0, 0, 0, 0)).eventually.be.fulfilled.and.include({
+				success: true,
+				zone_result: true
+			});
+		});
+	});
 });
