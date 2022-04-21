@@ -19,7 +19,7 @@ The package needs to be initialized with a Senfi API key and secret, which can b
 const Senfi = require('senfi');
 let senfi = new Senfi();
 senfi.initialize('api-key','api-key-secret')
-  .then(()) => console.log('initialized'))
+  .then(() => console.log('initialized'))
   .catch(error => console.error(error));
 ```
 
