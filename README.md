@@ -20,7 +20,7 @@ const Senfi = require('senfi');
 let senfi = new Senfi();
 senfi.initialize('api-key','api-key-secret')
   .then(() => console.log('initialized'))
-  .catch(error => console.error(error));
+  .catch(error => console.error('Initialization failed:', error.errmsg));
 ```
 
 Example usage:
