@@ -1,6 +1,6 @@
 {
   "name": "senfi",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "A node.js wrapper for the Senfi API",
   "author": "Senfi API Team <support@senfi.io> (https://www.senfi.io/)",
   "contributors": [
