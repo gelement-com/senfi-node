@@ -23,7 +23,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isAssetInZone(0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -40,7 +40,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 
 			await expect(senfi.zone.isAssetInZone(0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
@@ -56,7 +56,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isAssetAboveZone(0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -73,7 +73,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isAssetAboveZone(0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true
@@ -88,7 +88,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isAssetBelowZone(0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -105,7 +105,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isAssetBelowZone(0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true
@@ -120,7 +120,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isPointInZone(0, 0, 0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -137,7 +137,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isPointInZone(0, 0, 0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true
@@ -152,7 +152,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isPointAboveZone(0, 0, 0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -169,7 +169,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isPointAboveZone(0, 0, 0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true
@@ -184,7 +184,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isPointBelowZone(0, 0, 0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -201,7 +201,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.isPointBelowZone(0, 0, 0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true
@@ -216,7 +216,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.getZoneIdsFromAsset(0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -233,7 +233,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.getZoneIdsFromAsset(0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true
@@ -248,7 +248,7 @@ describe("Test senfi-node zone.js", async function () {
 			Senfi.prototype.httpRequest.restore();
 			sinon.stub(Senfi.prototype, "httpRequest").throws(new Error("This is a test"));
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.getZoneIdsFromPoint(0, 0, 0, 0)).eventually.be.rejected.and.include({
 				success: false,
 				errmsg: "This is a test",
@@ -265,7 +265,7 @@ describe("Test senfi-node zone.js", async function () {
 				zone_result: true
 			});
 
-			await senfi.initialize(testData.key, testData.secret, { host: "api.dev.senfi.io" });
+			await senfi.initialize(testData.key, testData.secret);
 			await expect(senfi.zone.getZoneIdsFromPoint(0, 0, 0, 0)).eventually.be.fulfilled.and.include({
 				success: true,
 				zone_result: true

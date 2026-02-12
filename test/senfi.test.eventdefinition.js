@@ -68,6 +68,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			// eventDefId, type, inputs, eventParams
 			await expect(senfi.eventdef.create({
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         description: "description",
         input: [],
         required_tagfield: []
@@ -81,6 +83,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			// eventDefId, type, inputs, eventParams
 			await expect(senfi.eventdef.create({
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         input: [],
         required_tagfield: []
@@ -94,6 +98,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			// eventDefId, type, inputs, eventParams
 			await expect(senfi.eventdef.create({
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         description: "description",
         required_tagfield: []
@@ -107,6 +113,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			// eventDefId, type, inputs, eventParams
 			await expect(senfi.eventdef.create({
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         description: "description",
         input: [],
@@ -118,6 +126,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 			await senfi.eventdef.create({
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         description: "description",
         input: [],
@@ -134,6 +144,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 			await await expect(senfi.eventdef.create({
+        connector_id: "connector_id",
+        instance_id: "instance_id", 
         name: "name",
         description: "description",
         input: [],
@@ -150,6 +162,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			// eventDefId, type, inputs, eventParams
 			await expect(senfi.eventdef.update(false, {
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         description: "description",
         input: [],
@@ -171,6 +185,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 			await senfi.eventdef.update(1, {
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         description: "description",
         input: [],
@@ -187,6 +203,8 @@ describe("Test senfi-node eventdefinition.js", async function () {
 
 			await senfi.initialize(testData.key, testData.secret);
 			await await expect(senfi.eventdef.update(1, {
+        connector_id: "connector_id",
+        instance_id: "instance_id",
         name: "name",
         description: "description",
         input: [],
@@ -207,7 +225,10 @@ describe("Test senfi-node eventdefinition.js", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret);
-			await senfi.eventdef.delete(1);
+			await senfi.eventdef.delete(1, {
+        connector_id: "connector_id",
+        instance_id: "instance_id"
+      });
 
 			expect(Senfi.prototype.httpRequest.called).equal(true);
 		});
