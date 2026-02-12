@@ -24,19 +24,20 @@ describe("Test senfi-node webhook.js", async function () {
 			await expect(senfi.webhook.set({})).to.be.rejected;
 		});
 
-		it("Should be rejected if argument is null", async function () {
-			let senfi = Senfi();
-
-			await senfi.initialize(testData.key, testData.secret);
-			await expect(senfi.webhook.set(null)).to.be.rejected;
-		});
-
 		it("Should call httpRequest", async function () {
 			let senfi = Senfi();
 
 			await senfi.initialize(testData.key, testData.secret);
 			await senfi.webhook.set("");
 			await expect(Senfi.prototype.httpRequest.called);
+		});
+
+    it("Should call httpRequest (null to unset)", async function () {
+			let senfi = Senfi();
+
+			await senfi.initialize(testData.key, testData.secret);
+			await senfi.webhook.set(null);
+      await expect(Senfi.prototype.httpRequest.called);
 		});
 
 		it("should be rejected by httpRequest when throw error", async function () {
